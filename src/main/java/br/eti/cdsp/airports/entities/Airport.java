@@ -15,10 +15,10 @@ import jakarta.persistence.Table;
  *
  * @author DIT2A
  */
-    
 @Entity
 @Table(name = "airport")
-    public class Airport {
+public class Airport {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -139,5 +139,4 @@ import jakarta.persistence.Table;
         this.timezone = timezone;
     }
 
-
-    }
+}

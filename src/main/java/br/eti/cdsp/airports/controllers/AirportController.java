@@ -4,6 +4,7 @@
  */
 package br.eti.cdsp.airports.controllers;
 
+import br.eti.cdsp.airports.DTO.AirportMinDTO;
 import br.eti.cdsp.airports.entities.Airport;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,4 +46,19 @@ public class AirportController {
             return ResponseEntity.ok(result);
         }
     }
+    @GetMapping("/country/{countryName}")
+    public ResponseEntity<List<AirportMinDTO>> findByCountryIgnoreCase(@PathVariable String countryName) {
+        List<AirportMinDTO> result = airportService.findByCountry(countryName);
+        
+        if (result.isEmpty()){
+            
+            return ResponseEntity.notFound().build();
+            
+        } else {
+            
+            return ResponseEntity.ok(result);
+        }
+    }
 }
+     
+

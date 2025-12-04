@@ -5,6 +5,7 @@
 package br.eti.cdsp.airports.controllers;
 
 import br.eti.cdsp.airports.DTO.AirportMinDTO;
+import br.eti.cdsp.airports.DTO.AirportNearMeDTO;
 import br.eti.cdsp.airports.entities.Airport;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import br.eti.cdsp.airports.service.AirportService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  *
@@ -68,6 +70,23 @@ public class AirportController {
              return ResponseEntity.ok(result);
          }
      }
+     @GetMapping("/nearme")
+public ResponseEntity<List<AirportNearMeDTO>> findNearMe(
+        @RequestParam double latitude,
+        @RequestParam double longitude) {
+
+    List<AirportNearMeDTO> result = airportService.findNearMe(latitude, longitude);
+
+    if (result.isEmpty()) {
+        // Ops... lista vazia
+        // notFound devolve 404
+        return ResponseEntity.notFound().build();
+    } else {
+        // Eba! Tem dados!
+        // ok devolve 200
+        return ResponseEntity.ok(result);
+    }
+  }
 }
      
 
